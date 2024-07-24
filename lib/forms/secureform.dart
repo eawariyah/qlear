@@ -22,54 +22,81 @@ class _SecureSubFormState extends State<SecureSubForm> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          // backgroundColor: Colors.black,
+          backgroundColor: Colors.black,
           appBar: AppBar(
             iconTheme: const IconThemeData(color: Colors.white),
-            title: Row(
-              children: [
-                // Padding(
-                //   padding: EdgeInsets.all(8.0),
-                //   child: ElevatedButton(
-                //       onPressed: () {
-                //         Scaffold.of(context).openDrawer();
-                //       },
-                //       child: Icon(
-                //         Icons.menu,
-                //         color: Colors.white,
-                //       )),
-                // ),
-                const Spacer(),
-                ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                          Colors.black), // Set padding to zero
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/sixth");
-                    },
-                    child: const Row(
-                      children: [
-                        Text(
-                          'Done',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.white,
-                        ),
-                      ],
-                    )),
-              ],
-            ),
             backgroundColor: Colors.black,
+            leadingWidth: 100,
+            leading: ElevatedButton(
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  backgroundColor:
+                      WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/second");
+                },
+                child: const Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                    // Text(
+                    //   'Cancel',
+                    //   style: TextStyle(color: Colors.white, fontSize: 16),
+                    // ),
+                  ],
+                )),
+            actions: [
+              ElevatedButton(
+                  style: ButtonStyle(
+                    padding:
+                        WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    backgroundColor:
+                        WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/sixth");
+                  },
+                  child: const Row(
+                    children: [
+                      Text(
+                        'Done',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                      ),
+                    ],
+                  )),
+            ],
           ),
+
           body: Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Column(
                 children: [
+                  Text(
+                    'Edit Form',
+                    style: TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.68,
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -77,13 +104,13 @@ class _SecureSubFormState extends State<SecureSubForm> {
                               child: ElevatedButton(
                             style: ButtonStyle(
                               padding: WidgetStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.zero), // Set padding to zero
+                                  EdgeInsets.zero),
                               shape: WidgetStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
-                              backgroundColor:
-                                  WidgetStateProperty.all(Colors.white),
+                              backgroundColor: WidgetStateProperty.all(
+                                  const Color(0xFF1E1E1E)),
                             ),
                             onPressed: () {
                               showDialog(
@@ -228,13 +255,13 @@ class _SecureSubFormState extends State<SecureSubForm> {
                               child: ElevatedButton(
                             style: ButtonStyle(
                               padding: WidgetStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.zero), // Set padding to zero
+                                  EdgeInsets.zero),
                               shape: WidgetStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
-                              backgroundColor:
-                                  WidgetStateProperty.all(Colors.white),
+                              backgroundColor: WidgetStateProperty.all(
+                                  const Color(0xFF1E1E1E)),
                             ),
                             onPressed: () {
                               showDialog(
@@ -562,13 +589,13 @@ class _SecureSubFormState extends State<SecureSubForm> {
                               child: ElevatedButton(
                             style: ButtonStyle(
                               padding: WidgetStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.zero), // Set padding to zero
+                                  EdgeInsets.zero),
                               shape: WidgetStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
-                              backgroundColor:
-                                  WidgetStateProperty.all(Colors.white),
+                              backgroundColor: WidgetStateProperty.all(
+                                  const Color(0xFF1E1E1E)),
                             ),
                             onPressed: () {
                               showDialog(
@@ -923,201 +950,335 @@ class _SecureSubFormState extends State<SecureSubForm> {
                           const SizedBox(
                             height: 10,
                           ),
-                          ElevatedButton(
-                              onPressed: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        height: 200,
-                                        color: Colors.black,
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              const Padding(
-                                                padding: EdgeInsets.only(
-                                                    bottom: 15.0),
-                                                child: Row(
-                                                  children: [
-                                                    Spacer(),
-                                                    ElevatedButton(
-                                                        onPressed: null,
-                                                        child: Column(
-                                                          children: [
-                                                            Icon(
-                                                                Icons
-                                                                    .text_fields_outlined,
-                                                                size: 64,
-                                                                color: Colors
-                                                                    .white),
-                                                            Text("Text",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                )),
-                                                          ],
-                                                        )),
-                                                    Spacer(),
-                                                    ElevatedButton(
-                                                        onPressed: null,
-                                                        child: Column(
-                                                          children: [
-                                                            Icon(
-                                                                Icons
-                                                                    .circle_outlined,
-                                                                size: 64,
-                                                                color: Colors
-                                                                    .white),
-                                                            Text("Select",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                )),
-                                                          ],
-                                                        )),
-                                                    Spacer(),
-                                                    ElevatedButton(
-                                                        onPressed: null,
-                                                        child: Column(
-                                                          children: [
-                                                            Icon(
-                                                                Icons
-                                                                    .check_box_outlined,
-                                                                size: 64,
-                                                                color: Colors
-                                                                    .white),
-                                                            Text("Checkbox",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                )),
-                                                          ],
-                                                        )),
-                                                    Spacer(),
-                                                  ],
-                                                ),
-                                              ),
-                                              ElevatedButton(
-                                                child: const Text('Close',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 18)),
-                                                style: ButtonStyle(
-                                                  padding: WidgetStateProperty
-                                                      .all<EdgeInsets>(EdgeInsets
-                                                          .zero), // Set padding to zero
-                                                  shape: WidgetStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10))),
-                                                  backgroundColor:
-                                                      WidgetStateProperty.all(
-                                                          const Color.fromARGB(
-                                                              255, 0, 0, 0)),
-                                                ),
-                                                onPressed: () =>
-                                                    Navigator.pop(context),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    });
-                              },
-                              child: const Icon(
-                                Icons.add_box_outlined,
-                                color: Colors.black,
-                                size: 64,
-                              )),
+
                           const SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
+                          // ElevatedButton(
+                          //     onPressed: () {
+                          //       showModalBottomSheet(
+                          //           context: context,
+                          //           builder: (BuildContext context) {
+                          //             return Container(
+                          //               height: 200,
+                          //               color: Colors.black,
+                          //               child: Center(
+                          //                 child: Column(
+                          //                   mainAxisAlignment:
+                          //                       MainAxisAlignment.center,
+                          //                   mainAxisSize: MainAxisSize.min,
+                          //                   children: <Widget>[
+                          //                     const Padding(
+                          //                       padding: EdgeInsets.only(
+                          //                           bottom: 15.0),
+                          //                       child: Row(
+                          //                         children: [
+                          //                           Spacer(),
+                          //                           ElevatedButton(
+                          //                               onPressed: null,
+                          //                               child: Column(
+                          //                                 children: [
+                          //                                   Icon(
+                          //                                       Icons
+                          //                                           .text_fields_outlined,
+                          //                                       size: 64,
+                          //                                       color: Colors
+                          //                                           .white),
+                          //                                   Text("Text",
+                          //                                       style:
+                          //                                           TextStyle(
+                          //                                         color: Colors
+                          //                                             .white,
+                          //                                       )),
+                          //                                 ],
+                          //                               )),
+                          //                           Spacer(),
+                          //                           ElevatedButton(
+                          //                               onPressed: null,
+                          //                               child: Column(
+                          //                                 children: [
+                          //                                   Icon(
+                          //                                       Icons
+                          //                                           .circle_outlined,
+                          //                                       size: 64,
+                          //                                       color: Colors
+                          //                                           .white),
+                          //                                   Text("Select",
+                          //                                       style:
+                          //                                           TextStyle(
+                          //                                         color: Colors
+                          //                                             .white,
+                          //                                       )),
+                          //                                 ],
+                          //                               )),
+                          //                           Spacer(),
+                          //                           ElevatedButton(
+                          //                               onPressed: null,
+                          //                               child: Column(
+                          //                                 children: [
+                          //                                   Icon(
+                          //                                       Icons
+                          //                                           .check_box_outlined,
+                          //                                       size: 64,
+                          //                                       color: Colors
+                          //                                           .white),
+                          //                                   Text("Checkbox",
+                          //                                       style:
+                          //                                           TextStyle(
+                          //                                         color: Colors
+                          //                                             .white,
+                          //                                       )),
+                          //                                 ],
+                          //                               )),
+                          //                           Spacer(),
+                          //                         ],
+                          //                       ),
+                          //                     ),
+                          //                     ElevatedButton(
+                          //                       child: const Text('Close',
+                          //                           style: TextStyle(
+                          //                               color: Colors.white,
+                          //                               fontSize: 18)),
+                          //                       style: ButtonStyle(
+                          //                         padding: WidgetStateProperty
+                          //                             .all<EdgeInsets>(EdgeInsets
+                          //                                 .zero), // Set padding to zero
+                          //                         shape: WidgetStateProperty.all<
+                          //                                 RoundedRectangleBorder>(
+                          //                             RoundedRectangleBorder(
+                          //                                 borderRadius:
+                          //                                     BorderRadius
+                          //                                         .circular(
+                          //                                             10))),
+                          //                         backgroundColor:
+                          //                             WidgetStateProperty.all(
+                          //                                 const Color.fromARGB(
+                          //                                     255, 0, 0, 0)),
+                          //                       ),
+                          //                       onPressed: () =>
+                          //                           Navigator.pop(context),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             );
+                          //           });
+                          //     },
+                          //     style: ButtonStyle(
+                          //       padding: WidgetStateProperty.all<EdgeInsets>(
+                          //           EdgeInsets.zero),
+                          //       shape: WidgetStateProperty.all<
+                          //               RoundedRectangleBorder>(
+                          //           RoundedRectangleBorder(
+                          //               borderRadius:
+                          //                   BorderRadius.circular(10))),
+                          //       backgroundColor: WidgetStateProperty.all(
+                          //           const Color(0xFF1E1E1E)),
+                          //     ),
+                          //     child: const Icon(
+                          //       Icons.add_box_outlined,
+                          //       color: Colors.white,
+                          //       size: 64,
+                          //     )),
+                          // const SizedBox(
+                          //   height: 20,
+                          // ),
                         ],
                       ),
                     ),
                   ),
                   const Spacer(),
-                  BottomNavigationBar(
-                    items: const [
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.add),
-                        label: 'Create form',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.qr_code),
-                        label: 'Scan form',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.person),
-                        label: 'Me',
-                      ),
-                    ],
-                    onTap: (index) {
-                      if (index == 0) {
-                        Navigator.pushNamed(context, "/second");
-                      }
-                      if (index == 1) {
-                        Navigator.pushNamed(context, "/third");
-                      }
-                      if (index == 2) {
-                        Navigator.pushNamed(context, "/fourth");
-                      }
-                    },
-                    backgroundColor: Colors.black,
-                    selectedItemColor: Colors.white,
-                    unselectedItemColor: Colors.white54,
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    color: Colors.black,
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: 200,
+                                  color: Colors.black,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        const Padding(
+                                          padding:
+                                              EdgeInsets.only(bottom: 15.0),
+                                          child: Row(
+                                            children: [
+                                              Spacer(),
+                                              ElevatedButton(
+                                                  onPressed: null,
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                          Icons
+                                                              .text_fields_outlined,
+                                                          size: 64,
+                                                          color: Colors.white),
+                                                      Text("Text",
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                          )),
+                                                    ],
+                                                  )),
+                                              Spacer(),
+                                              ElevatedButton(
+                                                  onPressed: null,
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                          Icons.circle_outlined,
+                                                          size: 64,
+                                                          color: Colors.white),
+                                                      Text("Select",
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                          )),
+                                                    ],
+                                                  )),
+                                              Spacer(),
+                                              ElevatedButton(
+                                                  onPressed: null,
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                          Icons
+                                                              .check_box_outlined,
+                                                          size: 64,
+                                                          color: Colors.white),
+                                                      Text("Checkbox",
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                          )),
+                                                    ],
+                                                  )),
+                                              Spacer(),
+                                            ],
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          child: const Text('Close',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18)),
+                                          style: ButtonStyle(
+                                            padding: WidgetStateProperty
+                                                .all<EdgeInsets>(EdgeInsets
+                                                    .zero), // Set padding to zero
+                                            shape: WidgetStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10))),
+                                            backgroundColor:
+                                                WidgetStateProperty.all(
+                                                    const Color.fromARGB(
+                                                        255, 0, 0, 0)),
+                                          ),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                        style: ButtonStyle(
+                          padding: WidgetStateProperty.all<EdgeInsets>(
+                              EdgeInsets.zero), // Set padding to zero
+                          shape:
+                              WidgetStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                          backgroundColor:
+                              WidgetStateProperty.all(Color(0xFF1E1E1E)),
+                        ),
+                        child: Text(
+                          'Add',
+                          style: TextStyle(fontSize: 32, color: Colors.white),
+                        )),
                   ),
+                  // BottomNavigationBar(
+                  //   items: const [
+                  //     BottomNavigationBarItem(
+                  //       icon: Icon(Icons.add),
+                  //       label: 'Create form',
+                  //     ),
+                  //     BottomNavigationBarItem(
+                  //       icon: Icon(Icons.qr_code),
+                  //       label: 'Scan form',
+                  //     ),
+                  //     BottomNavigationBarItem(
+                  //       icon: Icon(Icons.person),
+                  //       label: 'Me',
+                  //     ),
+                  //   ],
+                  //   onTap: (index) {
+                  //     if (index == 0) {
+                  //       Navigator.pushNamed(context, "/second");
+                  //     }
+                  //     if (index == 1) {
+                  //       Navigator.pushNamed(context, "/third");
+                  //     }
+                  //     if (index == 2) {
+                  //       Navigator.pushNamed(context, "/fourth");
+                  //     }
+                  //   },
+                  //   backgroundColor: Colors.black,
+                  //   selectedItemColor: Colors.white,
+                  //   unselectedItemColor: Colors.white54,
+                  // ),
                 ],
               ),
             ),
           ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                const DrawerHeader(
-                  child: Text(
-                    'Drawer Header',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.description,
-                      color: Colors.blue), // Set icon color here
-                  title: const Text('My Forms'),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.assignment,
-                      color: Colors.green), // Set icon color here
-                  title: const Text('Active Forms'),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ),
+          // drawer: Drawer(
+          //   child: ListView(
+          //     padding: EdgeInsets.zero,
+          //     children: <Widget>[
+          //       const DrawerHeader(
+          //         child: Text(
+          //           'Drawer Header',
+          //           style: TextStyle(color: Colors.white),
+          //         ),
+          //         decoration: BoxDecoration(
+          //           color: Colors.black,
+          //         ),
+          //       ),
+          //       ListTile(
+          //         leading: const Icon(Icons.description,
+          //             color: Colors.blue), // Set icon color here
+          //         title: const Text('My Forms'),
+          //         onTap: () {
+          //           // Update the state of the app
+          //           // ...
+          //           // Then close the drawer
+          //           Navigator.pop(context);
+          //         },
+          //       ),
+          //       ListTile(
+          //         leading: const Icon(Icons.assignment,
+          //             color: Colors.green), // Set icon color here
+          //         title: const Text('Active Forms'),
+          //         onTap: () {
+          //           // Update the state of the app
+          //           // ...
+          //           // Then close the drawer
+          //           Navigator.pop(context);
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ));
   }
 }

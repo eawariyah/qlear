@@ -19,19 +19,21 @@ class _CreateFormState extends State<CreateForm> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Color(0xFF000000),
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.white),
           title: const Row(
             children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: null,
-                  child: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.all(8.0),
+              //   child: ElevatedButton(
+              //     onPressed: null,
+              //     child: Icon(
+              //       Icons.menu,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
               Spacer(),
               ElevatedButton(
                 onPressed: null,
@@ -46,58 +48,59 @@ class _CreateFormState extends State<CreateForm> {
         ),
         body: Column(
           children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/seventh");
+
+                // Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) => const SecureForm(),
+                // ));
+              },
+              child: Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 0,
+                  ),
+                  child: Container(
+                    width: 350,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Color(0xFF1E1E1E), width: 2),
+                      image: const DecorationImage(
+                        image: AssetImage('assets/SecureForm.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: const Stack(
+                      children: [
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: Text(
+                            'Secure Form',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/seventh");
-
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (context) => const SecureForm(),
-                        // ));
-                      },
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 20,
-                          ),
-                          child: Container(
-                            width: 350,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: const DecorationImage(
-                                image: AssetImage('assets/SecureForm.png'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            child: const Stack(
-                              children: [
-                                Positioned(
-                                  bottom: 10,
-                                  right: 10,
-                                  child: Text(
-                                    'Secure Form',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -110,12 +113,14 @@ class _CreateFormState extends State<CreateForm> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(top: 0),
                           child: Container(
                             width: 350,
                             height: 150,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: Color(0xFF1E1E1E), width: 2),
                               image: const DecorationImage(
                                 image: AssetImage('assets/Black.png'),
                                 fit: BoxFit.cover,
@@ -154,12 +159,14 @@ class _CreateFormState extends State<CreateForm> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(top: 0),
                           child: Container(
                             width: 350,
                             height: 150,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: Color(0xFF1E1E1E), width: 2),
                               image: const DecorationImage(
                                 image: AssetImage('assets/Quiz.png'),
                                 fit: BoxFit.cover,
@@ -198,12 +205,14 @@ class _CreateFormState extends State<CreateForm> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(top: 0),
                           child: Container(
                             width: 350,
                             height: 150,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: Color(0xFF1E1E1E), width: 2),
                               image: const DecorationImage(
                                 image: AssetImage('assets/Invitation.png'),
                                 fit: BoxFit.cover,
@@ -265,6 +274,44 @@ class _CreateFormState extends State<CreateForm> {
               unselectedItemColor: Colors.white54,
             ),
           ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(color: Colors.white),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.description,
+                    color: Colors.blue), // Set icon color here
+                title: const Text('My Forms'),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.assignment,
+                    color: Colors.green), // Set icon color here
+                title: const Text('Active Forms'),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

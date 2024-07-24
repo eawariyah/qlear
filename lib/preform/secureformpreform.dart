@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
-    as picker;
 
 // void main() {
 //   runApp(MyApp());
@@ -35,38 +33,7 @@ class _SecureFormPreFormState extends State<SecureFormPreForm> {
             iconTheme: const IconThemeData(color: Colors.white),
             title: Row(
               children: [
-                // Padding(
-                //   padding: EdgeInsets.all(8.0),
-                //   child: ElevatedButton(
-                //       onPressed: () {
-                //         Scaffold.of(context).openDrawer();
-                //       },
-                //       child: Icon(
-                //         Icons.menu,
-                //         color: Colors.white,
-                //       )),
-                // ),
                 const Spacer(),
-                // ElevatedButton(
-                //     style: ButtonStyle(
-                //       backgroundColor: WidgetStateProperty.all(
-                //           Colors.black), // Set padding to zero
-                //     ),
-                //     onPressed: () {
-                //       Navigator.pushNamed(context, "/sixth");
-                //     },
-                //     child: const Row(
-                //       children: [
-                //         Text(
-                //           'Done',
-                //           style: TextStyle(color: Colors.white, fontSize: 16),
-                //         ),
-                //         Icon(
-                //           Icons.arrow_forward_ios,
-                //           color: Colors.white,
-                //         ),
-                //       ],
-                //     )),
               ],
             ),
             backgroundColor: Colors.black,
@@ -135,119 +102,145 @@ class _SecureFormPreFormState extends State<SecureFormPreForm> {
                   SizedBox(
                     height: 10,
                   ),
+                  // ToggleButtons(
+                  //   isSelected: isSelected,
+                  //   onPressed: (int index) {
+                  //                       DatePickerDialog(
+                  //     firstDate: DateTime.now(), lastDate: DateTime.now()),
+                  //     });
+                  //   },
+                  //   children: const <Widget>[
+                  //     Text('Unlimited Interval'),
+                  //                           Text('Fixed Interval')
 
-                  ElevatedButton(
-                      onPressed: () {
-                        picker.DatePicker.showDatePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime(2018, 3, 5),
-                            maxTime: DateTime(2019, 6, 7),
-                            theme: picker.DatePickerTheme(
-                                headerColor: Color(0xFF1E1E1E),
-                                backgroundColor:
-                                    const Color.fromARGB(255, 0, 0, 0),
-                                itemStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                                cancelStyle: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                                doneStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16)), onChanged: (date) {
-                          print('change $date in time zone ' +
-                              date.timeZoneOffset.inHours.toString());
-                        }, onConfirm: (date) {
-                          print('confirm $date');
-                        },
-                            currentTime: DateTime.now(),
-                            locale: picker.LocaleType.en);
-                      },
-                      style: ButtonStyle(
-                        padding: WidgetStateProperty.all<EdgeInsets>(
-                            EdgeInsets.zero), // Set padding to zero
-                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        backgroundColor:
-                            WidgetStateProperty.all(Color(0xFF1E1E1E)),
-                      ),
-                      child: Icon(
-                        Icons.calendar_today,
-                        color: Colors.white,
-                        size: 32,
-                      )),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: TextButton(
-                  //       onPressed: () {
-                  //         picker.DatePicker.showDatePicker(context,
-                  //             showTitleActions: true,
-                  //             minTime: DateTime(2018, 3, 5),
-                  //             maxTime: DateTime(2019, 6, 7),
-                  //             theme: picker.DatePickerTheme(
-                  //                 headerColor: Color(0xFF1E1E1E),
-                  //                 backgroundColor:
-                  //                     const Color.fromARGB(255, 0, 0, 0),
-                  //                 itemStyle: TextStyle(
-                  //                     color: Colors.white,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     fontSize: 18),
-                  //                 doneStyle: TextStyle(
-                  //                     color: Colors.white,
-                  //                     fontSize: 16)), onChanged: (date) {
-                  //           print('change $date in time zone ' +
-                  //               date.timeZoneOffset.inHours.toString());
-                  //         }, onConfirm: (date) {
-                  //           print('confirm $date');
-                  //         },
-                  //             currentTime: DateTime.now(),
-                  //             locale: picker.LocaleType.en);
-                  //       },
-                  //       child: Text(
-                  //         'Pick Duration',
-                  //         style: TextStyle(
-                  //             fontSize: 20, fontWeight: FontWeight.bold),
-                  //       )),
+                  //   ],
                   // ),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF1E1E1E),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              final DateTime? pickedDate =
+                                                  await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2000),
+                                                lastDate: DateTime(2101),
+                                              );
+                                              if (pickedDate != null) {
+                                                print(
+                                                    'Selected date: $pickedDate');
+                                              }
+                                            },
+                                            style: ButtonStyle(
+                                              padding: WidgetStateProperty.all<
+                                                  EdgeInsets>(EdgeInsets.zero),
+                                              shape: WidgetStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10))),
+                                              backgroundColor:
+                                                  WidgetStateProperty.all(
+                                                      const Color(0xFF1E1E1E)),
+                                            ),
+                                            child: const Text('Select Date',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18)),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: null,
+                                            style: ButtonStyle(
+                                              padding: WidgetStateProperty.all<
+                                                  EdgeInsets>(EdgeInsets.zero),
+                                              shape: WidgetStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10))),
+                                              backgroundColor:
+                                                  WidgetStateProperty.all(
+                                                      const Color(0xFF1E1E1E)),
+                                            ),
+                                            child: const Text('No End Date',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    ElevatedButton(
+                                      child: const Text('Close',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18)),
+                                      style: ButtonStyle(
+                                        padding:
+                                            WidgetStateProperty.all<EdgeInsets>(
+                                                EdgeInsets.zero),
+                                        shape: WidgetStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10))),
+                                        backgroundColor:
+                                            WidgetStateProperty.all(
+                                                const Color(0xFF1E1E1E)),
+                                      ),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    style: ButtonStyle(
+                      padding:
+                          WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      backgroundColor:
+                          WidgetStateProperty.all(const Color(0xFF1E1E1E)),
+                    ),
+                    child: const Icon(
+                      Icons.calendar_today,
+                      color: Colors.white,
+                      size: 32,
+                    ),
+                  ),
+
                   SizedBox(
                     height: 100,
                   ),
                   const Spacer(),
-                  // BottomNavigationBar(
-                  //   items: const [
-                  //     BottomNavigationBarItem(
-                  //       icon: Icon(Icons.add),
-                  //       label: 'Create form',
-                  //     ),
-                  //     BottomNavigationBarItem(
-                  //       icon: Icon(Icons.qr_code),
-                  //       label: 'Scan form',
-                  //     ),
-                  //     BottomNavigationBarItem(
-                  //       icon: Icon(Icons.person),
-                  //       label: 'Me',
-                  //     ),
-                  //   ],
-                  //   onTap: (index) {
-                  //     if (index == 0) {
-                  //       Navigator.pushNamed(context, "/second");
-                  //     }
-                  //     if (index == 1) {
-                  //       Navigator.pushNamed(context, "/third");
-                  //     }
-                  //     if (index == 2) {
-                  //       Navigator.pushNamed(context, "/fourth");
-                  //     }
-                  //   },
-                  //   backgroundColor: Colors.black,
-                  //   selectedItemColor: Colors.white,
-                  //   unselectedItemColor: Colors.white54,
-                  // ),
-                  // ElevatedButton(onPressed: (){
-                  //                           Navigator.pushNamed(context, "/fifth");
 
-                  // }), child: )
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: 100,
