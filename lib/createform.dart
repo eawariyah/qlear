@@ -22,7 +22,7 @@ class _CreateFormState extends State<CreateForm> {
         backgroundColor: Color(0xFF000000),
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
-          title: const Row(
+          title: Row(
             children: [
               // Padding(
               //   padding: EdgeInsets.all(8.0),
@@ -36,7 +36,18 @@ class _CreateFormState extends State<CreateForm> {
               // ),
               Spacer(),
               ElevatedButton(
-                onPressed: null,
+                onPressed: () {
+                  Navigator.pushNamed(context, "/fourth");
+                },
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all<EdgeInsets>(
+                      EdgeInsets.zero), // Set padding to zero
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  backgroundColor:
+                      WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                ),
                 child: Icon(
                   Icons.settings,
                   color: Colors.white,
@@ -51,10 +62,6 @@ class _CreateFormState extends State<CreateForm> {
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, "/seventh");
-
-                // Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) => const SecureForm(),
-                // ));
               },
               child: Card(
                 elevation: 5,
@@ -103,9 +110,7 @@ class _CreateFormState extends State<CreateForm> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const SurveyForm(),
-                        ));
+                        Navigator.pushNamed(context, "/seventh");
                       },
                       child: Card(
                         elevation: 5,
@@ -113,7 +118,9 @@ class _CreateFormState extends State<CreateForm> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 0),
+                          padding: const EdgeInsets.only(
+                            top: 0,
+                          ),
                           child: Container(
                             width: 350,
                             height: 150,
@@ -149,9 +156,7 @@ class _CreateFormState extends State<CreateForm> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const QuizForm(),
-                        ));
+                        Navigator.pushNamed(context, "/seventh");
                       },
                       child: Card(
                         elevation: 5,
@@ -159,7 +164,9 @@ class _CreateFormState extends State<CreateForm> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 0),
+                          padding: const EdgeInsets.only(
+                            top: 0,
+                          ),
                           child: Container(
                             width: 350,
                             height: 150,
@@ -195,9 +202,7 @@ class _CreateFormState extends State<CreateForm> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const InvitationForm(),
-                        ));
+                        Navigator.pushNamed(context, "/seventh");
                       },
                       child: Card(
                         elevation: 5,
@@ -205,7 +210,9 @@ class _CreateFormState extends State<CreateForm> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 0),
+                          padding: const EdgeInsets.only(
+                            top: 0,
+                          ),
                           child: Container(
                             width: 350,
                             height: 150,
@@ -293,9 +300,6 @@ class _CreateFormState extends State<CreateForm> {
                     color: Colors.blue), // Set icon color here
                 title: const Text('My Forms'),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
                 },
               ),
@@ -304,9 +308,6 @@ class _CreateFormState extends State<CreateForm> {
                     color: Colors.green), // Set icon color here
                 title: const Text('Active Forms'),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
                 },
               ),

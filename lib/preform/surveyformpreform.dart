@@ -5,14 +5,14 @@ import 'package:flutter_spinbox/material.dart'; // or flutter_spinbox.dart for b
 //   runApp(MyApp());
 // }
 
-class SecureFormPreForm extends StatefulWidget {
-  const SecureFormPreForm({super.key});
+class SurveyFormPreForm extends StatefulWidget {
+  const SurveyFormPreForm({super.key});
 
   @override
-  State<SecureFormPreForm> createState() => _SecureFormPreFormState();
+  State<SurveyFormPreForm> createState() => _SurveyFormPreFormState();
 }
 
-class _SecureFormPreFormState extends State<SecureFormPreForm> {
+class _SurveyFormPreFormState extends State<SurveyFormPreForm> {
   @override
   void initState() {
     super.initState();

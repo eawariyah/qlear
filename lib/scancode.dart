@@ -26,7 +26,7 @@ class _ScanCodeState extends State<ScanCode> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            title: const Row(
+            title: Row(
               children: [
                 Padding(
                   padding: EdgeInsets.all(8.0),
@@ -38,27 +38,56 @@ class _ScanCodeState extends State<ScanCode> {
                       )),
                 ),
                 Spacer(),
-                const ElevatedButton(
-                    onPressed: null,
-                    child: Icon(
-                      Icons.settings,
-                      color: Colors.white,
-                    )),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/fourth");
+                  },
+                  style: ButtonStyle(
+                    padding: WidgetStateProperty.all<EdgeInsets>(
+                        EdgeInsets.zero), // Set padding to zero
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    backgroundColor:
+                        WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                  ),
+                  child: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
             backgroundColor: Colors.black,
           ),
+          backgroundColor: Colors.black,
           body: Column(
             children: [
               const Spacer(),
               Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QRViewExample(),
-                    ));
-                  },
-                  child: const Text('qrView'),
+                child: SizedBox(
+                  width: 300,
+                  height: 100,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const QRViewExample(),
+                      ));
+                    },
+                    child: const Text(
+                      'Begin',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    style: ButtonStyle(
+                      padding: WidgetStateProperty.all<EdgeInsets>(
+                          EdgeInsets.zero), // Set padding to zero
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      backgroundColor:
+                          WidgetStateProperty.all(Color(0xFF1E1E1E)),
+                    ),
+                  ),
                 ),
               ),
               const Spacer(),
@@ -125,14 +154,18 @@ class _QRViewExampleState extends State<QRViewExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: const IconThemeData(color: Colors.black),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text('QR Scanner'),
+        title: const Text('Scan Secure Form',
+            style: TextStyle(color: Colors.white)),
       ),
+      backgroundColor: Colors.black,
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
@@ -145,8 +178,10 @@ class _QRViewExampleState extends State<QRViewExample> {
                 children: <Widget>[
                   if (result != null)
                     Text(
-                        // ignore: deprecated_member_use
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                      // ignore: deprecated_member_use
+                      'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}',
+                      style: TextStyle(color: Colors.white),
+                    )
                   else
                     const Text('Scan a code'),
                   Row(

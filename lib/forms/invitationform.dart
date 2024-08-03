@@ -3,14 +3,14 @@ import 'package:qlear/InputWidgets/NormalCheckboxInput.dart';
 import 'package:qlear/InputWidgets/NormalRadioInput.dart';
 import 'package:qlear/InputWidgets/NormalTextInput.dart';
 
-class SecureSubForm extends StatefulWidget {
-  const SecureSubForm({super.key});
+class InvitationSubForm extends StatefulWidget {
+  const InvitationSubForm({super.key});
 
   @override
-  State<SecureSubForm> createState() => _SecureSubFormState();
+  State<InvitationSubForm> createState() => _InvitationSubFormState();
 }
 
-class _SecureSubFormState extends State<SecureSubForm> {
+class _InvitationSubFormState extends State<InvitationSubForm> {
   List<Widget> formWidgets = [];
 
   void _addTextInput() {
