@@ -176,14 +176,34 @@ class _QRViewExampleState extends State<QRViewExample> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  if (result != null)
-                    Text(
-                      // ignore: deprecated_member_use
-                      'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}',
-                      style: TextStyle(color: Colors.white),
+                  if (result != null &&
+                      "http://127.0.0.1:5500/CompletePage.html" == result!.code)
+                    Row(
+                      children: [
+                        Text(
+                          // ignore: deprecated_member_use
+                          'Verified Successfully',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Icon(Icons.check, color: Colors.green),
+                      ],
+                    )
+                  else if (result != null)
+                    Row(
+                      children: [
+                        Icon(Icons.cancel, color: Colors.red),
+                        Text(
+                          // ignore: deprecated_member_use
+                          'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
                     )
                   else
-                    const Text('Scan a code'),
+                    const Text(
+                      'Scan a code',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
