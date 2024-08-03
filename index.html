@@ -29,49 +29,61 @@
             placeholder="What is your name?"
           />
 
-          <label style="font-weight: bolder"
-            >How would you like to recieve additional information?</label
-          >
+          <label style="font-weight: bolder">
+            How would you like to receive additional information?
+          </label>
           <div class="radio-group">
-            <input type="radio" id="male" name="gender" value="male" />
-            <label for="male">Phone</label>
+            <input type="radio" id="phone" name="contact" value="phone" />
+            <label for="phone">Phone</label>
 
-            <input type="radio" id="female" name="gender" value="female" />
-            <label for="female">Email</label>
+            <input type="radio" id="email" name="contact" value="email" />
+            <label for="email">Email</label>
 
-            <input type="radio" id="female" name="gender" value="female" />
-            <label for="female">Text</label>
+            <input type="radio" id="text" name="contact" value="text" />
+            <label for="text">Text</label>
           </div>
 
-          <label style="font-weight: bolder"
-            >Which session would you like to attend?</label
-          >
+          <label style="font-weight: bolder">
+            Which session would you like to attend?
+          </label>
           <div class="checkbox-group">
             <input
               type="checkbox"
-              id="sports"
-              name="interests"
-              value="sports"
+              id="session1"
+              name="sessions"
+              value="session1"
             />
-            <label for="sports">Session 1</label>
-
-            <input type="checkbox" id="music" name="interests" value="music" />
-            <label for="music">Session 2</label>
+            <label for="session1">Session 1</label>
 
             <input
               type="checkbox"
-              id="reading"
-              name="interests"
-              value="reading"
+              id="session2"
+              name="sessions"
+              value="session2"
             />
-            <label for="reading">Session 3</label>
+            <label for="session2">Session 2</label>
+
+            <input
+              type="checkbox"
+              id="session3"
+              name="sessions"
+              value="session3"
+            />
+            <label for="session3">Session 3</label>
           </div>
 
-          <button type="submit" onclick="location.href='CompletePage.html'">
-            Submit
-          </button>
+          <button type="button" id="submitBtn">Submit</button>
         </form>
       </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.addEventListener("click", () => {
+          window.location.href = "CompletePage.html";
+        });
+      });
+    </script>
   </body>
 </html>
