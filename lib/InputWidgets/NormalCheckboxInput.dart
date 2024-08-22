@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:qlear/SubInputList/CheckboxItems.dart';
 import 'package:qlear/SubInputList/DialogCheckboxItems.dart';
 
-class NormalCheckboxInput extends StatelessWidget {
+class NormalCheckboxInput extends StatefulWidget {
   final String numberInput;
-  final String buttonTitleText;
+  // final String buttonTitleText;
+  final TextEditingController textController;
+
   final List radioList;
   final List dialogRadioList;
   final String dialogTitle;
@@ -12,10 +14,12 @@ class NormalCheckboxInput extends StatelessWidget {
   final String dialogHintText;
   final VoidCallback? onDeletePressed;
   final VoidCallback? onClosePressed;
+  final VoidCallback? dialogAddButton;
 
   NormalCheckboxInput({
     required this.numberInput,
-    required this.buttonTitleText,
+    // required this.buttonTitleText,
+    required this.textController,
     required this.radioList,
     required this.dialogRadioList,
     required this.dialogTitle,
@@ -23,7 +27,28 @@ class NormalCheckboxInput extends StatelessWidget {
     required this.dialogHintText,
     this.onDeletePressed,
     this.onClosePressed,
+    this.dialogAddButton,
   });
+
+  @override
+  State<NormalCheckboxInput> createState() => _NormalCheckboxInputState();
+}
+
+class _NormalCheckboxInputState extends State<NormalCheckboxInput> {
+  void initState() {
+    super.initState();
+    widget.textController.addListener(_updateText);
+  }
+
+  @override
+  void dispose() {
+    widget.textController.removeListener(_updateText);
+    super.dispose();
+  }
+
+  void _updateText() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +60,11 @@ class NormalCheckboxInput extends StatelessWidget {
         Container(
           child: ElevatedButton(
             style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xFF1E1E1E)),
+              backgroundColor: WidgetStateProperty.all(const Color(0xFF1E1E1E)),
             ),
             onPressed: () {
               showDialog(
@@ -63,9 +87,11 @@ class NormalCheckboxInput extends StatelessWidget {
                                 children: [
                                   SizedBox(height: 20),
                                   TextField(
+                                    controller: widget.textController,
+                                    style: TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      labelText: dialogLabelText,
+                                      labelText: widget.dialogLabelText,
                                       labelStyle: TextStyle(
                                           color: Colors.white, fontSize: 18),
                                       hintStyle: TextStyle(
@@ -73,7 +99,7 @@ class NormalCheckboxInput extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 10),
-                                  ...dialogRadioList
+                                  ...widget.dialogRadioList
                                       .map((item) => DialogCheckboxItems(
                                           dialogCheckboxItemValue: item,
                                           deleteCheckboxValue: () {
@@ -86,12 +112,26 @@ class NormalCheckboxInput extends StatelessWidget {
                             ),
                             SizedBox(height: 10), // Add some spacing
                             ElevatedButton(
-                              onPressed: null,
+                              style: ButtonStyle(
+                                padding: WidgetStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.zero,
+                                ),
+                                shape: WidgetStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                backgroundColor: WidgetStateProperty.all(
+                                  const Color(0xFF1E1E1E),
+                                ),
+                              ),
+                              onPressed: widget.dialogAddButton,
                               child: Icon(Icons.add, color: Colors.white),
                             ),
                             SizedBox(height: 10), // Add some spacing
                             SizedBox(
-                              width: 300,
+                              width: MediaQuery.of(context).size.width * 0.95,
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 50.0, right: 50),
@@ -122,7 +162,7 @@ class NormalCheckboxInput extends StatelessWidget {
                                           const Color(0xFF1E1E1E),
                                         ),
                                       ),
-                                      onPressed: onDeletePressed,
+                                      onPressed: widget.onDeletePressed,
                                     ),
                                     const Spacer(),
                                     ElevatedButton(
@@ -150,8 +190,8 @@ class NormalCheckboxInput extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         Navigator.pop(context);
-                                        if (onClosePressed != null) {
-                                          onClosePressed!();
+                                        if (widget.onClosePressed != null) {
+                                          widget.onClosePressed!();
                                         }
                                       },
                                     ),
@@ -188,12 +228,15 @@ class NormalCheckboxInput extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.72,
                           child: Row(
                             children: [
-                              Text(numberInput,
+                              Text(widget.numberInput,
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 18)),
                               SizedBox(width: 5),
                               Expanded(
-                                child: Text(buttonTitleText,
+                                child: Text(
+                                    widget.textController.text.isEmpty
+                                        ? widget.dialogHintText
+                                        : widget.textController.text,
                                     style: const TextStyle(
                                         color: Colors.white, fontSize: 18)),
                               ),
@@ -206,16 +249,16 @@ class NormalCheckboxInput extends StatelessWidget {
                           height: 60,
                           child: ElevatedButton(
                             onPressed: null,
-                            child: const Icon(Icons.delete,
-                                color: Color.fromARGB(255, 255, 0, 0)),
+                            child: const Icon(Icons.edit,
+                                color: Color.fromARGB(255, 255, 255, 255)),
                             style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
+                              padding: WidgetStateProperty.all<EdgeInsets>(
                                   EdgeInsets.zero),
-                              shape: MaterialStateProperty.all<
+                              shape: WidgetStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
-                              backgroundColor: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(
                                   const Color(0xFF1E1E1E)),
                             ),
                           ),
@@ -227,7 +270,7 @@ class NormalCheckboxInput extends StatelessWidget {
                         child: Column(
                           children: [
                             const SizedBox(height: 10),
-                            ...radioList
+                            ...widget.radioList
                                 .map((item) =>
                                     CheckboxItems(checkboxItemValue: item))
                                 .toList(),

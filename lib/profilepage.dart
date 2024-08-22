@@ -76,13 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.zero))),
                     onPressed: null,
-                    child: const Text(
-                      'Share contact',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: "Poppins",
-                          color: Colors.black),
-                    )),
+                    child: Text('data', style: TextStyle(color: Colors.black,),)),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: const RoundedRectangleBorder(

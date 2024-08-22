@@ -12,21 +12,44 @@ class SecureSubForm extends StatefulWidget {
 
 class _SecureSubFormState extends State<SecureSubForm> {
   List<Widget> formWidgets = [];
+  List<String> radioListValues = [
+    "Phone",
+    "Email",
+    "Text",
+    "Other",
+    "Other",
+    "None",
+    "Other"
+  ];
+  List<String> dialogRadioListValues = [
+    "Phone",
+    "Email",
+    // "Text",
+    // "Other",
+    // "None",
+    // "Other"
+  ];
 
   void _addTextInput() {
     setState(() {
+      final textController = TextEditingController();
       formWidgets.add(
         NormalTextInput(
-          buttonText: 'What is your name?',
-          dialogTitle: 'Dialog Title',
           numberInput: "${formWidgets.length + 1}.",
-          dialogLabelText: 'What is your name?',
-          dialogHintText: 'Enter your name',
+          textController: textController,
+          dialogTitle: '1',
+          dialogLabelText: 'Enter Text Input',
+          // dialogHintText: 'Enter your name',
+          dialogHintText: 'Edit Input',
+
           onDeletePressed: () {
             _deleteWidget(formWidgets.length);
+            Navigator.pop(context);
           },
           onClosePressed: () {
-            print('Close button pressed');
+            setState(() {
+              // Update the button text with the entered text
+            });
           },
         ),
       );
@@ -35,21 +58,28 @@ class _SecureSubFormState extends State<SecureSubForm> {
 
   void _addRadioInput() {
     setState(() {
+      final radioController = TextEditingController();
       formWidgets.add(
         NormalRadioInput(
           numberInput: "${formWidgets.length + 1}. ",
-          buttonTitleText:
-              "How would you like to receive additional information?",
-          radioList: ["Phone", "Email", "Text"],
-          dialogRadioList: ["Phone", "Email", "Text"],
-          dialogTitle: "Title",
-          dialogLabelText: "Title",
-          dialogHintText: "dialogHintText",
+          textController: radioController,
+          radioList: radioListValues,
+          dialogRadioList: dialogRadioListValues,
+          dialogTitle: "Change select title",
+          dialogLabelText: "Change select title",
+          dialogHintText: "Edit Input",
           onDeletePressed: () {
             _deleteWidget(formWidgets.length);
+            Navigator.pop(context);
           },
           onClosePressed: () {
             print('Close button pressed');
+          },
+          dialogAddButtonPressed: () {
+            print("Add sub radio item");
+          },
+          dialogDeleteButtonPressed: () {
+            print("Delete sub radio item");
           },
         ),
       );
@@ -58,10 +88,11 @@ class _SecureSubFormState extends State<SecureSubForm> {
 
   void _addCheckboxInput() {
     setState(() {
+      final checkboxController = TextEditingController();
       formWidgets.add(
         NormalCheckboxInput(
           numberInput: "${formWidgets.length + 1}. ",
-          buttonTitleText: "Which session would you like to attend?",
+          textController: checkboxController,
           radioList: [
             "Session 1",
             "Session 2",
@@ -69,12 +100,16 @@ class _SecureSubFormState extends State<SecureSubForm> {
             "Session 4",
             "Session 5"
           ],
-          dialogRadioList: ["Phone", "Email", "Text"],
-          dialogTitle: "Title",
-          dialogLabelText: "Title",
-          dialogHintText: "dialogHintText",
+          dialogRadioList: [""],
+          dialogTitle: "Change Textbox Title",
+          dialogLabelText: "Change Textbox Title",
+          dialogHintText: "Change Textbox Title",
           onDeletePressed: () {
             _deleteWidget(formWidgets.length);
+            Navigator.pop(context);
+          },
+          dialogAddButton: () {
+            print("Add Button Pressed");
           },
           onClosePressed: () {
             print('Close button pressed');
@@ -86,18 +121,27 @@ class _SecureSubFormState extends State<SecureSubForm> {
 
   void _deleteWidget(int index) {
     setState(() {
-      formWidgets.removeAt(index - 1);
+      if (index > 0) {
+        formWidgets.removeAt(index - 1);
+      } else {
+        print("Index is zero or less, no widget removed.");
+        return;
+      }
+
       // Update numberInput for remaining widgets
       for (int i = 0; i < formWidgets.length; i++) {
         if (formWidgets[i] is NormalTextInput) {
           formWidgets[i] = NormalTextInput(
-            buttonText: 'What is your name?',
+            textController: (formWidgets[i] as NormalTextInput).textController,
             dialogTitle: 'Dialog Title',
             numberInput: "${i + 1}.",
-            dialogLabelText: 'What is your name?',
-            dialogHintText: 'Enter your name',
+            dialogLabelText: 'Enter text input',
+            // dialogHintText: 'Enter your name',
+            dialogHintText: 'Enter text input',
+
             onDeletePressed: () {
               _deleteWidget(i + 1);
+              Navigator.pop(context);
             },
             onClosePressed: () {
               print('Close button pressed');
@@ -106,15 +150,15 @@ class _SecureSubFormState extends State<SecureSubForm> {
         } else if (formWidgets[i] is NormalRadioInput) {
           formWidgets[i] = NormalRadioInput(
             numberInput: "${i + 1}. ",
-            buttonTitleText:
-                "How would you like to receive additional information?",
-            radioList: ["Phone", "Email", "Text"],
-            dialogRadioList: ["Phone", "Email", "Text"],
+            textController: (formWidgets[i] as NormalRadioInput).textController,
+            radioList: ["Phone"],
+            dialogRadioList: [""],
             dialogTitle: "Title",
             dialogLabelText: "Title",
-            dialogHintText: "dialogHintText",
+            dialogHintText: "",
             onDeletePressed: () {
               _deleteWidget(i + 1);
+              Navigator.pop(context);
             },
             onClosePressed: () {
               print('Close button pressed');
@@ -123,7 +167,8 @@ class _SecureSubFormState extends State<SecureSubForm> {
         } else if (formWidgets[i] is NormalCheckboxInput) {
           formWidgets[i] = NormalCheckboxInput(
             numberInput: "${i + 1}. ",
-            buttonTitleText: "Which session would you like to attend?",
+            textController:
+                (formWidgets[i] as NormalCheckboxInput).textController,
             radioList: [
               "Session 1",
               "Session 2",
@@ -133,10 +178,11 @@ class _SecureSubFormState extends State<SecureSubForm> {
             ],
             dialogRadioList: ["Phone", "Email", "Text"],
             dialogTitle: "Title",
-            dialogLabelText: "Title",
-            dialogHintText: "dialogHintText",
+            dialogLabelText: "Text One",
+            dialogHintText: "Text Two",
             onDeletePressed: () {
               _deleteWidget(i + 1);
+              Navigator.pop(context);
             },
             onClosePressed: () {
               print('Close button pressed');
@@ -159,14 +205,14 @@ class _SecureSubFormState extends State<SecureSubForm> {
           leadingWidth: 100,
           leading: ElevatedButton(
             style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               backgroundColor:
-                  MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                  WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
             ),
             onPressed: () {
               Navigator.pushNamed(context, "/second");
@@ -181,14 +227,14 @@ class _SecureSubFormState extends State<SecureSubForm> {
           actions: [
             ElevatedButton(
               style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 backgroundColor:
-                    MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                    WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
               ),
               onPressed: () {
                 Navigator.pushNamed(context, "/sixth");

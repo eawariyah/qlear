@@ -64,7 +64,7 @@
         const downloadBtn = document.getElementById("downloadBtn");
 
         // Generate QR Code
-        const url = window.location.href;
+        const url = "www.codet.io";
         QRCode.toCanvas(qrCodeCanvas, url, { width: 200 }, (error) => {
           if (error) console.error(error);
           console.log("QR Code generated!");

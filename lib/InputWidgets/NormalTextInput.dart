@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class NormalTextInput extends StatelessWidget {
+class NormalTextInput extends StatefulWidget {
   final String numberInput;
-  final String buttonText;
+  final TextEditingController textController;
   final String dialogTitle;
   final String dialogLabelText;
   final String dialogHintText;
@@ -11,7 +11,7 @@ class NormalTextInput extends StatelessWidget {
 
   NormalTextInput({
     required this.numberInput,
-    required this.buttonText,
+    required this.textController,
     required this.dialogTitle,
     required this.dialogLabelText,
     required this.dialogHintText,
@@ -20,12 +20,32 @@ class NormalTextInput extends StatelessWidget {
   });
 
   @override
+  State<NormalTextInput> createState() => _NormalTextInputState();
+}
+
+class _NormalTextInputState extends State<NormalTextInput> {
+  @override
+  @override
+  void initState() {
+    super.initState();
+    widget.textController.addListener(_updateText);
+  }
+
+  @override
+  void dispose() {
+    widget.textController.removeListener(_updateText);
+    super.dispose();
+  }
+
+  void _updateText() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 5),
         Container(
           child: ElevatedButton(
             style: ButtonStyle(
@@ -54,10 +74,12 @@ class NormalTextInput extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextField(
+                                controller: widget.textController,
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
-                                  labelText: dialogLabelText,
+                                  labelText: widget.dialogLabelText,
+                                  // hintText: widget.dialogHintText,
                                   labelStyle: const TextStyle(
                                       color: Colors.white, fontSize: 18),
                                   hintStyle: const TextStyle(
@@ -67,7 +89,7 @@ class NormalTextInput extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             SizedBox(
-                              width: 300,
+                              width: MediaQuery.of(context).size.width * 0.95,
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 50.0, right: 50),
@@ -92,7 +114,7 @@ class NormalTextInput extends StatelessWidget {
                                             WidgetStateProperty.all(
                                                 const Color(0xFF1E1E1E)),
                                       ),
-                                      onPressed: onDeletePressed,
+                                      onPressed: widget.onDeletePressed,
                                     ),
                                     const Spacer(),
                                     ElevatedButton(
@@ -115,8 +137,8 @@ class NormalTextInput extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         Navigator.pop(context);
-                                        if (onClosePressed != null) {
-                                          onClosePressed!();
+                                        if (widget.onClosePressed != null) {
+                                          widget.onClosePressed!();
                                         }
                                       },
                                     ),
@@ -151,15 +173,15 @@ class NormalTextInput extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            numberInput,
+                            widget.numberInput,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 18),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
+                          SizedBox(width: 5),
                           Text(
-                            buttonText,
+                            widget.textController.text.isEmpty
+                                ? widget.dialogHintText
+                                : widget.textController.text,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 18),
                           ),
@@ -171,8 +193,8 @@ class NormalTextInput extends StatelessWidget {
                       width: 60,
                       child: ElevatedButton(
                         onPressed: null,
-                        child: const Icon(Icons.delete,
-                            color: Color.fromARGB(255, 255, 0, 0)),
+                        child: const Icon(Icons.edit,
+                            color: Color.fromARGB(255, 255, 255, 255)),
                         style: ButtonStyle(
                           padding: WidgetStateProperty.all<EdgeInsets>(
                               EdgeInsets.zero),
@@ -191,9 +213,7 @@ class NormalTextInput extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: 5,
-        )
+        SizedBox(height: 5)
       ],
     );
   }

@@ -31,9 +31,10 @@ class DialogRadioItems extends StatelessWidget {
           //   width: 8,
           // ),
           SizedBox(
-            width: 230,
-            height: 45,
+            width: MediaQuery.of(context).size.width * 0.60,
+            height: MediaQuery.of(context).size.height * 0.05,
             child: TextField(
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: dialogRadioItemValue,

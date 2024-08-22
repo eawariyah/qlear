@@ -18,7 +18,7 @@ class DialogCheckboxItems extends StatelessWidget {
           Spacer(),
           ElevatedButton(
             onPressed: deleteCheckboxValue,
-            child: Icon(Icons.check_box_outlined, color: Colors.white),
+            child: Icon(Icons.cancel_outlined, color: Colors.white),
             style: ButtonStyle(
               padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
@@ -31,15 +31,16 @@ class DialogCheckboxItems extends StatelessWidget {
           //   width: 8,
           // ),
           SizedBox(
-            width: 230,
-            height: 45,
+            width: MediaQuery.of(context).size.width * 0.60,
+            height: MediaQuery.of(context).size.height * 0.05,
             child: TextField(
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: dialogCheckboxItemValue,
-                labelStyle: TextStyle(color: Colors.white, fontSize: 18),
-                hintStyle: TextStyle(color: Colors.white, fontSize: 18),
-              ),
+                  border: OutlineInputBorder(),
+                  labelText: "Item",
+                  labelStyle: TextStyle(color: Colors.white, fontSize: 18),
+                  hintStyle: TextStyle(color: Colors.white, fontSize: 18),
+                  hintText: dialogCheckboxItemValue),
             ),
           )
         ],
