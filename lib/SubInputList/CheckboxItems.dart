@@ -17,8 +17,17 @@ class CheckboxItems extends StatelessWidget {
           SizedBox(
             width: 8,
           ),
-          Text(checkboxItemValue,
-              style: TextStyle(color: Colors.white, fontSize: 16)),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.65,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(checkboxItemValue,
+                      style: TextStyle(color: Colors.white, fontSize: 16)),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

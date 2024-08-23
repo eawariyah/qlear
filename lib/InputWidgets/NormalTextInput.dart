@@ -155,62 +155,64 @@ class _NormalTextInputState extends State<NormalTextInput> {
               );
             },
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1E1E1E),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
+                padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+                child: SingleChildScrollView(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1E1E1E),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.72,
-                      child: Row(
-                        children: [
-                          Text(
-                            widget.numberInput,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 18),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.05,
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.01),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          child: Row(
+                            children: [
+                              Text(widget.numberInput,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 18)),
+                              SizedBox(width: 5),
+                              Expanded(
+                                child: Text(
+                                    widget.textController.text.isEmpty
+                                        ? widget.dialogHintText
+                                        : widget.textController.text,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 18)),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 5),
-                          Text(
-                            widget.textController.text.isEmpty
-                                ? widget.dialogHintText
-                                : widget.textController.text,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Container(
-                      width: 60,
-                      child: ElevatedButton(
-                        onPressed: null,
-                        child: const Icon(Icons.edit,
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        style: ButtonStyle(
-                          padding: WidgetStateProperty.all<EdgeInsets>(
-                              EdgeInsets.zero),
-                          shape:
-                              WidgetStateProperty.all<RoundedRectangleBorder>(
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          width: 60,
+                          child: ElevatedButton(
+                            onPressed: null,
+                            child: const Icon(Icons.edit,
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            style: ButtonStyle(
+                              padding: WidgetStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.zero),
+                              shape: WidgetStateProperty.all<
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
-                          backgroundColor:
-                              WidgetStateProperty.all(const Color(0xFF1E1E1E)),
+                              backgroundColor: WidgetStateProperty.all(
+                                  const Color(0xFF1E1E1E)),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ),
+                  ),
+                )),
           ),
         ),
         SizedBox(height: 5)

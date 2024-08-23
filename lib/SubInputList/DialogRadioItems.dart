@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
 
-class DialogRadioItems extends StatelessWidget {
+class DialogRadioItems extends StatefulWidget {
   final String dialogRadioItemValue;
   final VoidCallback? deleteRadioValue;
+  final TextEditingController textController;
+  final Function(String) onTextChanged;
 
   DialogRadioItems({
     required this.dialogRadioItemValue,
     this.deleteRadioValue,
+    required this.textController,
+    required this.onTextChanged,
   });
+
+  @override
+  State<DialogRadioItems> createState() => _DialogRadioItemsState();
+}
+
+class _DialogRadioItemsState extends State<DialogRadioItems> {
+  @override
+  void initState() {
+    super.initState();
+    widget.textController.text = widget.dialogRadioItemValue;
+    widget.textController.addListener(_onTextChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.textController.removeListener(_onTextChanged);
+    super.dispose();
+  }
+
+  void _onTextChanged() {
+    widget.onTextChanged(widget.textController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +43,26 @@ class DialogRadioItems extends StatelessWidget {
         children: [
           Spacer(),
           ElevatedButton(
-            onPressed: deleteRadioValue,
+            onPressed: widget.deleteRadioValue,
             child: Icon(Icons.cancel_outlined, color: Colors.white),
             style: ButtonStyle(
-              padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
-              backgroundColor: WidgetStateProperty.all(const Color(0xFF1E1E1E)),
+              backgroundColor:
+                  MaterialStateProperty.all(const Color(0xFF1E1E1E)),
             ),
           ),
-          // SizedBox(
-          //   width: 8,
-          // ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.60,
             height: MediaQuery.of(context).size.height * 0.05,
             child: TextField(
               style: TextStyle(color: Colors.white),
+              controller: widget.textController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: dialogRadioItemValue,
+                labelText: widget.dialogRadioItemValue,
                 labelStyle: TextStyle(color: Colors.white, fontSize: 18),
                 hintStyle: TextStyle(color: Colors.white, fontSize: 18),
               ),

@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:qlear/SubInputList/CheckboxItems.dart';
+import 'package:flutter/widgets.dart';
 import 'package:qlear/SubInputList/DialogCheckboxItems.dart';
+import 'package:qlear/SubInputList/CheckboxItems.dart';
 
 class NormalCheckboxInput extends StatefulWidget {
   final String numberInput;
-  // final String buttonTitleText;
   final TextEditingController textController;
-
-  final List radioList;
-  final List dialogRadioList;
+  final List<String> checkboxList;
+  final List<String> dialogCheckboxList;
   final String dialogTitle;
   final String dialogLabelText;
   final String dialogHintText;
   final VoidCallback? onDeletePressed;
   final VoidCallback? onClosePressed;
-  final VoidCallback? dialogAddButton;
+  final VoidCallback? dialogAddButtonPressed;
+  final VoidCallback? dialogDeleteButtonPressed;
+  final Function(List<String>)? onDialogCheckboxListChanged; // New callback
 
   NormalCheckboxInput({
     required this.numberInput,
-    // required this.buttonTitleText,
     required this.textController,
-    required this.radioList,
-    required this.dialogRadioList,
+    required this.checkboxList,
+    required this.dialogCheckboxList,
     required this.dialogTitle,
     required this.dialogLabelText,
     required this.dialogHintText,
     this.onDeletePressed,
     this.onClosePressed,
-    this.dialogAddButton,
+    this.dialogAddButtonPressed,
+    this.dialogDeleteButtonPressed,
+    this.onDialogCheckboxListChanged, // Initialize the callback
   });
 
   @override
@@ -35,9 +37,13 @@ class NormalCheckboxInput extends StatefulWidget {
 }
 
 class _NormalCheckboxInputState extends State<NormalCheckboxInput> {
+  List<String> _dialogCheckboxList = [];
+
+  @override
   void initState() {
     super.initState();
     widget.textController.addListener(_updateText);
+    _dialogCheckboxList = List.from(widget.dialogCheckboxList);
   }
 
   @override
@@ -50,176 +56,249 @@ class _NormalCheckboxInputState extends State<NormalCheckboxInput> {
     setState(() {});
   }
 
+  void _addDialogCheckboxItem() {
+    setState(() {
+      _dialogCheckboxList.add("New Item ${_dialogCheckboxList.length + 1}");
+      widget.onDialogCheckboxListChanged
+          ?.call(_dialogCheckboxList); // Update parent list
+    });
+  }
+
+  void _deleteDialogCheckboxItem(int index) {
+    setState(() {
+      _dialogCheckboxList.removeAt(index);
+      widget.onDialogCheckboxListChanged
+          ?.call(_dialogCheckboxList); // Update parent list
+    });
+  }
+
+  void _onTextChanged(int index, String newValue) {
+    setState(() {
+      _dialogCheckboxList[index] = newValue;
+      widget.onDialogCheckboxListChanged
+          ?.call(_dialogCheckboxList); // Notify parent
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 5),
         Container(
           child: ElevatedButton(
             style: ButtonStyle(
-              padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10))),
-              backgroundColor: WidgetStateProperty.all(const Color(0xFF1E1E1E)),
+              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              backgroundColor:
+                  MaterialStateProperty.all(const Color(0xFF1E1E1E)),
             ),
+            // Inside your onPressed callback for the ElevatedButton that shows the dialog
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return Dialog(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1E1E1E),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 20),
-                                  TextField(
-                                    controller: widget.textController,
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: widget.dialogLabelText,
-                                      labelStyle: TextStyle(
-                                          color: Colors.white, fontSize: 18),
-                                      hintStyle: TextStyle(
-                                          color: Colors.white, fontSize: 18),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  ...widget.dialogRadioList
-                                      .map((item) => DialogCheckboxItems(
-                                          dialogCheckboxItemValue: item,
-                                          deleteCheckboxValue: () {
-                                            print('Delete button pressed');
-                                          }))
-                                      .toList(),
-                                  const SizedBox(height: 10),
-                                ],
-                              ),
+                    child: StatefulBuilder(
+                      builder: (BuildContext context, StateSetter setState) {
+                        return SingleChildScrollView(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E1E1E),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            SizedBox(height: 10), // Add some spacing
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                padding: WidgetStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.zero,
-                                ),
-                                shape: WidgetStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                backgroundColor: WidgetStateProperty.all(
-                                  const Color(0xFF1E1E1E),
-                                ),
-                              ),
-                              onPressed: widget.dialogAddButton,
-                              child: Icon(Icons.add, color: Colors.white),
-                            ),
-                            SizedBox(height: 10), // Add some spacing
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.95,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 50.0, right: 50),
-                                child: Row(
-                                  children: [
-                                    ElevatedButton(
-                                      child: const Text(
-                                        'Delete',
-                                        style: TextStyle(
-                                          color: Color.fromARGB(255, 255, 0, 0),
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      style: ButtonStyle(
-                                        padding:
-                                            WidgetStateProperty.all<EdgeInsets>(
-                                          EdgeInsets.zero,
-                                        ),
-                                        shape: WidgetStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: 20),
+                                        TextField(
+                                          controller: widget.textController,
+                                          style: TextStyle(color: Colors.white),
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText: widget.dialogLabelText,
+                                            labelStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18),
+                                            hintStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18),
                                           ),
                                         ),
-                                        backgroundColor:
-                                            WidgetStateProperty.all(
-                                          const Color(0xFF1E1E1E),
-                                        ),
-                                      ),
-                                      onPressed: widget.onDeletePressed,
-                                    ),
-                                    const Spacer(),
-                                    ElevatedButton(
-                                      child: const Text(
-                                        'Done',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
-                                      ),
-                                      style: ButtonStyle(
-                                        padding:
-                                            WidgetStateProperty.all<EdgeInsets>(
-                                          EdgeInsets.zero,
-                                        ),
-                                        shape: WidgetStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                        Spacer(),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.35,
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              children: [
+                                                ..._dialogCheckboxList
+                                                    .asMap()
+                                                    .entries
+                                                    .map(
+                                                      (entry) =>
+                                                          DialogCheckboxItems(
+                                                        textController:
+                                                            TextEditingController(),
+                                                        dialogCheckboxItemValue:
+                                                            entry.value,
+                                                        deleteCheckboxValue:
+                                                            () {
+                                                          setState(() {
+                                                            _deleteDialogCheckboxItem(
+                                                                entry.key);
+                                                          });
+                                                        },
+                                                        onTextChanged:
+                                                            (newValue) {
+                                                          _onTextChanged(
+                                                              entry.key,
+                                                              newValue);
+                                                        },
+                                                      ),
+                                                    )
+                                                    .toList(),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        backgroundColor:
-                                            WidgetStateProperty.all(
-                                          const Color(0xFF1E1E1E),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        if (widget.onClosePressed != null) {
-                                          widget.onClosePressed!();
-                                        }
-                                      },
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                                SizedBox(height: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _addDialogCheckboxItem();
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    padding:
+                                        WidgetStateProperty.all<EdgeInsets>(
+                                      EdgeInsets.zero,
+                                    ),
+                                    shape: WidgetStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                    backgroundColor: WidgetStateProperty.all(
+                                      const Color(0xFF1E1E1E),
+                                    ),
+                                  ),
+                                  child: Icon(Icons.add, color: Colors.white),
+                                ),
+                                SizedBox(height: 10),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.95,
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 50.0, right: 50),
+                                    child: Row(
+                                      children: [
+                                        ElevatedButton(
+                                          child: const Text(
+                                            'Delete',
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 0, 0),
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          style: ButtonStyle(
+                                            padding: WidgetStateProperty.all<
+                                                EdgeInsets>(
+                                              EdgeInsets.zero,
+                                            ),
+                                            shape: WidgetStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            backgroundColor:
+                                                WidgetStateProperty.all(
+                                              const Color(0xFF1E1E1E),
+                                            ),
+                                          ),
+                                          onPressed: widget.onDeletePressed,
+                                        ),
+                                        Spacer(),
+                                        ElevatedButton(
+                                          child: const Text(
+                                            'Done',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18),
+                                          ),
+                                          style: ButtonStyle(
+                                            padding: WidgetStateProperty.all<
+                                                EdgeInsets>(
+                                              EdgeInsets.zero,
+                                            ),
+                                            shape: WidgetStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            backgroundColor:
+                                                WidgetStateProperty.all(
+                                              const Color(0xFF1E1E1E),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            if (widget.onClosePressed != null) {
+                                              widget.onClosePressed!();
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                              ],
                             ),
-                            SizedBox(height: 10), // Add some spacing
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
               );
             },
+
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              padding: EdgeInsets.only(left: 8.0, right: 8.0),
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 250,
+                width: MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.height * 0.3,
                 decoration: BoxDecoration(
                   color: const Color(0xFF1E1E1E),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     Row(
                       children: [
                         SizedBox(
@@ -243,7 +322,7 @@ class _NormalCheckboxInputState extends State<NormalCheckboxInput> {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8),
                         Container(
                           width: 60,
                           height: 60,
@@ -252,13 +331,13 @@ class _NormalCheckboxInputState extends State<NormalCheckboxInput> {
                             child: const Icon(Icons.edit,
                                 color: Color.fromARGB(255, 255, 255, 255)),
                             style: ButtonStyle(
-                              padding: WidgetStateProperty.all<EdgeInsets>(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
                                   EdgeInsets.zero),
-                              shape: WidgetStateProperty.all<
+                              shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
-                              backgroundColor: WidgetStateProperty.all(
+                              backgroundColor: MaterialStateProperty.all(
                                   const Color(0xFF1E1E1E)),
                             ),
                           ),
@@ -269,26 +348,27 @@ class _NormalCheckboxInputState extends State<NormalCheckboxInput> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            const SizedBox(height: 10),
-                            ...widget.radioList
-                                .map((item) =>
-                                    CheckboxItems(checkboxItemValue: item))
+                            SizedBox(height: 10),
+                            // ...widget.checkboxList
+                            //     .map((item) => CheckboxItems(checkboxItemValue: item))
+                            //     .toList(),
+                            // SizedBox(height: 10),
+                            ..._dialogCheckboxList
+                                .map((value) =>
+                                    CheckboxItems(checkboxItemValue: value))
                                 .toList(),
-                            const SizedBox(height: 10),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),
             ),
           ),
         ),
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 5),
       ],
     );
   }

@@ -22,8 +22,7 @@ class _SecureSubFormState extends State<SecureSubForm> {
     "Other"
   ];
   List<String> dialogRadioListValues = [
-    "Phone",
-    "Email",
+    "New Item",
     // "Text",
     // "Other",
     // "None",
@@ -93,14 +92,14 @@ class _SecureSubFormState extends State<SecureSubForm> {
         NormalCheckboxInput(
           numberInput: "${formWidgets.length + 1}. ",
           textController: checkboxController,
-          radioList: [
+          checkboxList: [
             "Session 1",
             "Session 2",
             "Session 3",
             "Session 4",
             "Session 5"
           ],
-          dialogRadioList: [""],
+          dialogCheckboxList: [""],
           dialogTitle: "Change Textbox Title",
           dialogLabelText: "Change Textbox Title",
           dialogHintText: "Change Textbox Title",
@@ -108,9 +107,9 @@ class _SecureSubFormState extends State<SecureSubForm> {
             _deleteWidget(formWidgets.length);
             Navigator.pop(context);
           },
-          dialogAddButton: () {
-            print("Add Button Pressed");
-          },
+          // dialogAddButton: () {
+          //   print("Add Button Pressed");
+          // },
           onClosePressed: () {
             print('Close button pressed');
           },
@@ -169,14 +168,14 @@ class _SecureSubFormState extends State<SecureSubForm> {
             numberInput: "${i + 1}. ",
             textController:
                 (formWidgets[i] as NormalCheckboxInput).textController,
-            radioList: [
+            checkboxList: [
               "Session 1",
               "Session 2",
               "Session 3",
               "Session 4",
               "Session 5"
             ],
-            dialogRadioList: ["Phone", "Email", "Text"],
+            dialogCheckboxList: ["Phone", "Email", "Text"],
             dialogTitle: "Title",
             dialogLabelText: "Text One",
             dialogHintText: "Text Two",
