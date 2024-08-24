@@ -13,20 +13,17 @@ class SecureSubForm extends StatefulWidget {
 class _SecureSubFormState extends State<SecureSubForm> {
   List<Widget> formWidgets = [];
   List<String> radioListValues = [
-    "Phone",
-    "Email",
-    "Text",
-    "Other",
-    "Other",
-    "None",
-    "Other"
+    "",
   ];
   List<String> dialogRadioListValues = [
     "New Item",
-    // "Text",
-    // "Other",
-    // "None",
-    // "Other"
+  ];
+
+  List<String> checkboxListValues = [
+    "",
+  ];
+  List<String> dialogCheckboxListValues = [
+    "New Item",
   ];
 
   void _addTextInput() {
@@ -66,7 +63,7 @@ class _SecureSubFormState extends State<SecureSubForm> {
           dialogRadioList: dialogRadioListValues,
           dialogTitle: "Change select title",
           dialogLabelText: "Change select title",
-          dialogHintText: "Edit Input",
+          dialogHintText: "Change select title",
           onDeletePressed: () {
             _deleteWidget(formWidgets.length);
             Navigator.pop(context);
@@ -92,14 +89,8 @@ class _SecureSubFormState extends State<SecureSubForm> {
         NormalCheckboxInput(
           numberInput: "${formWidgets.length + 1}. ",
           textController: checkboxController,
-          checkboxList: [
-            "Session 1",
-            "Session 2",
-            "Session 3",
-            "Session 4",
-            "Session 5"
-          ],
-          dialogCheckboxList: [""],
+          checkboxList: checkboxListValues,
+          dialogCheckboxList: dialogCheckboxListValues,
           dialogTitle: "Change Textbox Title",
           dialogLabelText: "Change Textbox Title",
           dialogHintText: "Change Textbox Title",

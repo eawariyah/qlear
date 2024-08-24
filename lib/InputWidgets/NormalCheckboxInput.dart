@@ -288,7 +288,7 @@ class _NormalCheckboxInputState extends State<NormalCheckboxInput> {
             },
 
             child: Padding(
-              padding: EdgeInsets.only(left: 8.0, right: 8.0),
+              padding: EdgeInsets.only(left: 0.0, right: 0.0),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 height: MediaQuery.of(context).size.height * 0.3,

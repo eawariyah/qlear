@@ -49,18 +49,32 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
                 Container(
                   width: MediaQuery.sizeOf(context).width,
                   height: MediaQuery.sizeOf(context).height / 2,
+                  color: Colors.black,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    child: Image.network('https://codet.io/CodetMobile.png'),
+                  ),
+                ),
+                Container(
+                  // width: MediaQuery.sizeOf(context).width,
+                  // height: MediaQuery.sizeOf(context).height / 2,
                   child: Column(
                     children: [
-                      Container(
-                        color: Colors.black,
-                        height: 200,
-                        width: MediaQuery.sizeOf(context).width,
-                        child: Image.asset(
-                          "assets/QRCODE.png",
-                          width: 200,
-                          height: 200,
-                        ),
-                      ),
+                      // Container(
+                      //   color: Colors.black,
+                      //   height: 200,
+                      //   width: MediaQuery.sizeOf(context).width,
+                      //   child: Image.network(
+                      //       'https://codet.io/CodetMobile.png' +
+                      //           controller.text,
+                      //       fit: BoxFit.cover),
+                      //   // Image.asset(
+                      //   //   "assets/QRCODE.png",
+                      //   //   width: 200,
+                      //   //   height: 200,
+                      //   // ),
+                      // ),
                       Container(
                           color: Colors.black,
                           width: MediaQuery.sizeOf(context).width,
