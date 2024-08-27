@@ -26,19 +26,56 @@ class _SecureFormPreFormState extends State<SecureFormPreForm> {
         home: Scaffold(
           backgroundColor: Colors.black,
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
+            iconTheme: const IconThemeData(color: Colors.white),
+            backgroundColor: Colors.black,
+            leadingWidth: 100,
+            leading: ElevatedButton(
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                backgroundColor:
+                    WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: const Row(
+                children: [
+                  SizedBox(width: 10),
+                  Icon(Icons.arrow_back, color: Colors.white),
+                ],
+              ),
             ),
-            iconTheme: const IconThemeData(color: Colors.white),
-            title: Row(
-              children: [
-                const Spacer(),
-              ],
-            ),
-            backgroundColor: Colors.black,
+            actions: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  backgroundColor:
+                      WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const PreformNext(),
+                  ));
+                },
+                child: const Row(
+                  children: [
+                    Text('Done',
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Icon(Icons.arrow_forward_ios, color: Colors.white),
+                  ],
+                ),
+              ),
+            ],
           ),
           body: Center(
             child: Padding(
@@ -157,20 +194,70 @@ class PreformNext extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.black,
+          // appBar: AppBar(
+          //   leading: IconButton(
+          //     icon: const Icon(Icons.arrow_back),
+          // onPressed: () {
+          //   Navigator.of(context).pop();
+          // },
+          //   ),
+          //   iconTheme: const IconThemeData(color: Colors.white),
+          //   title: Row(
+          //     children: [
+          //       const Spacer(),
+          //     ],
+          //   ),
+          //   backgroundColor: Colors.black,
+          // ),
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
+            iconTheme: const IconThemeData(color: Colors.white),
+            backgroundColor: Colors.black,
+            leadingWidth: 100,
+            leading: ElevatedButton(
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                backgroundColor:
+                    WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: const Row(
+                children: [
+                  SizedBox(width: 10),
+                  Icon(Icons.arrow_back, color: Colors.white),
+                ],
+              ),
             ),
-            iconTheme: const IconThemeData(color: Colors.white),
-            title: Row(
-              children: [
-                const Spacer(),
-              ],
-            ),
-            backgroundColor: Colors.black,
+            actions: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  backgroundColor:
+                      WidgetStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/fifth");
+                },
+                child: const Row(
+                  children: [
+                    Text('Done',
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Icon(Icons.arrow_forward_ios, color: Colors.white),
+                  ],
+                ),
+              ),
+            ],
           ),
           body: Center(
             child: Padding(

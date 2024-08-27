@@ -3,6 +3,12 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
+// import 'package:url_launcher/url_launcher.dart';
+// import 'package:flutter_link_previewer/flutter_link_previewer.dart';
+
+import 'package:flutter/services.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' show PreviewData;
+import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 
 class SecureFormSharable extends StatefulWidget {
   const SecureFormSharable({super.key});
@@ -17,10 +23,24 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
     super.initState();
   }
 
+  final String imageUrl = 'https://eawariyah.github.io/qlear/QRCODE.png';
   TextEditingController controller = TextEditingController();
 
-  final String imageUrl = 'https://eawariyah.github.io/qlear/QRCODE.png';
+  Map<String, PreviewData> datas = {};
 
+  final style = TextStyle(
+    color: Colors.red,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    height: 1.375,
+  );
+  List<String> get urls => const [
+        // 'github.com/flyerhq',
+        'https://www.parkpilot.info',
+
+        // 'https://u24.gov.ua',
+        // 'https://twitter.com/SpaceX/status/1564975288655630338',
+      ];
   Future<void> saveQRCode() async {
     // Request permission to access photos/media/gallery
     var permissionStatus = await Permission.storage.request();
@@ -41,6 +61,12 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
       print('Permission not granted. Unable to save QR code.');
     }
   }
+
+  // Future<void> _launchUrl() async {
+  //   if (!await launchUrl(_url)) {
+  //     throw Exception('Could not launch $_url');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,62 +124,110 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
                     ],
                   ),
                 ),
+
                 Container(
-                  width: MediaQuery.sizeOf(context).width,
-                  color: Colors.amber,
+                  height: 300,
+                  child: ListView.builder(
+                    itemCount: urls.length,
+                    itemBuilder: (context, index) => Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        key: ValueKey(urls[index]),
+                        margin: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          color: Color(0xfff7f7f8),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          child: LinkPreview(
+                            enableAnimation: true,
+                            onPreviewDataFetched: (data) {
+                              setState(() {
+                                datas = {
+                                  ...datas,
+                                  urls[index]: data,
+                                };
+                              });
+                            },
+                            previewData: datas[urls[index]],
+                            text: urls[index],
+                            // text: "",
+                            openOnPreviewImageTap: true,
+
+                            width: MediaQuery.of(context).size.width,
+                            linkStyle: style,
+                            metadataTextStyle: style.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            metadataTitleStyle: style.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Clipboard.setData(new ClipboardData(text: controller.text))
-                //         .then((_) {
-                //       controller.clear();
-                //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                //           content: Text('Copied to your clipboard !')));
-                //     });
-                //   },
+
+                // Container(
+                //   width: MediaQuery.sizeOf(context).width,
+                //   color: Color(0xFF212121),
                 //   child: Column(
                 //     children: [
-                //       Text(
-                //         'www.qrcodeplus.com/iuadsnif45' + controller.text,
-                //         style: TextStyle(
-                //             fontSize: 20,
-                //             fontFamily: "Poppins",
-                //             color: Colors.black),
-                //       ),
                 //       SizedBox(
-                //         height: 30,
+                //         height: MediaQuery.sizeOf(context).height * 0.05,
                 //       ),
-                //       Container(
-                //         width: 150,
-                //         height: 80,
-                //         child: ElevatedButton(
-                //           onPressed: null,
-                //           style: ButtonStyle(
-                //             padding: WidgetStateProperty.all<EdgeInsets>(
-                //                 EdgeInsets.all(10)), // Set padding to zero
-                //             shape:
-                //                 WidgetStateProperty.all<RoundedRectangleBorder>(
-                //                     RoundedRectangleBorder(
-                //                         borderRadius:
-                //                             BorderRadius.circular(10))),
-                //             backgroundColor:
-                //                 WidgetStateProperty.all(Color(0xFF1E1E1E)),
+                //       ElevatedButton(
+                //         // onPressed: _launchUrl,
+                //         onPressed: null,
+                //         child: Text("Preview Form Online",
+                //             style:
+                //                 TextStyle(fontSize: 20, color: Colors.white)),
+                //         style: ButtonStyle(
+                //           padding: WidgetStateProperty.all<EdgeInsets>(
+                //               EdgeInsets.zero),
+                //           shape:
+                //               WidgetStateProperty.all<RoundedRectangleBorder>(
+                //             RoundedRectangleBorder(
+                //               borderRadius: BorderRadius.circular(10),
+                //             ),
                 //           ),
-                //           child: Column(
-                //             children: [
-                //               Icon(Icons.share, color: Colors.white),
-                //               Text('Share link',
-                //                   style: TextStyle(
-                //                       fontSize: 20,
-                //                       fontFamily: "Poppins",
-                //                       color: Colors.white)),
-                //             ],
+                //           backgroundColor:
+                //               WidgetStateProperty.all(Color(0xFF000000)),
+                //         ),
+                //       ),
+                //       ElevatedButton(
+                //         onPressed: null,
+                //         child: Text("Share form",
+                //             style:
+                //                 TextStyle(fontSize: 20, color: Colors.white)),
+                //         style: ButtonStyle(
+                //           padding: WidgetStateProperty.all<EdgeInsets>(
+                //               EdgeInsets.zero),
+                //           shape:
+                //               WidgetStateProperty.all<RoundedRectangleBorder>(
+                //             RoundedRectangleBorder(
+                //               borderRadius: BorderRadius.circular(10),
+                //             ),
                 //           ),
+                //           backgroundColor:
+                //               WidgetStateProperty.all(Color(0xFF000000)),
                 //         ),
                 //       ),
                 //     ],
                 //   ),
                 // ),
+
                 const Spacer(),
                 BottomNavigationBar(
                   items: const [
@@ -188,6 +262,48 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
               ],
             ),
           ),
+
+          // body: Center(
+          //   child:
+          // Container(
+          //   child: ListView.builder(
+          //     itemCount: urls.length,
+          //     itemBuilder: (context, index) => Align(
+          //       alignment: Alignment.centerLeft,
+          //       child: Container(
+          //         key: ValueKey(urls[index]),
+          //         margin: const EdgeInsets.all(16),
+          //         decoration: const BoxDecoration(
+          //           borderRadius: BorderRadius.all(
+          //             Radius.circular(20),
+          //           ),
+          //           color: Color(0xfff7f7f8),
+          //         ),
+          //         child: ClipRRect(
+          //           borderRadius: const BorderRadius.all(
+          //             Radius.circular(20),
+          //           ),
+          //           child: LinkPreview(
+          //             enableAnimation: true,
+          //             onPreviewDataFetched: (data) {
+          //               setState(() {
+          //                 datas = {
+          //                   ...datas,
+          //                   urls[index]: data,
+          //                 };
+          //               });
+          //             },
+          //             previewData: datas[urls[index]],
+          //             text: urls[index],
+          //             width: MediaQuery.of(context).size.width,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // ),
+
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,

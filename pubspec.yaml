@@ -47,6 +47,9 @@ dependencies:
   # share_plus: ^9.0.0
   firebase_core: ^3.3.0
   dio: ^5.6.0
+  flutter_link_previewer: ^3.2.2
+  # url_launcher: ^6.3.0
+  # any_link_preview: ^3.0.2
   
 
 dev_dependencies:

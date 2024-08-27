@@ -156,14 +156,14 @@ class _NormalTextInputState extends State<NormalTextInput> {
             },
             child: Padding(
                 padding: const EdgeInsets.only(left: 0.0, right: 0.0),
-                child: SingleChildScrollView(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E1E1E),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E1E1E),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: SingleChildScrollView(
                     child: Row(
                       children: [
                         SizedBox(
