@@ -124,7 +124,6 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
                     ],
                   ),
                 ),
-
                 Container(
                   height: 300,
                   child: ListView.builder(
@@ -155,7 +154,7 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
                               });
                             },
                             previewData: datas[urls[index]],
-                            text: urls[index],
+                            text: "Share: " + urls[index],
                             // text: "",
                             openOnPreviewImageTap: true,
 
@@ -178,56 +177,6 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
                     ),
                   ),
                 ),
-
-                // Container(
-                //   width: MediaQuery.sizeOf(context).width,
-                //   color: Color(0xFF212121),
-                //   child: Column(
-                //     children: [
-                //       SizedBox(
-                //         height: MediaQuery.sizeOf(context).height * 0.05,
-                //       ),
-                //       ElevatedButton(
-                //         // onPressed: _launchUrl,
-                //         onPressed: null,
-                //         child: Text("Preview Form Online",
-                //             style:
-                //                 TextStyle(fontSize: 20, color: Colors.white)),
-                //         style: ButtonStyle(
-                //           padding: WidgetStateProperty.all<EdgeInsets>(
-                //               EdgeInsets.zero),
-                //           shape:
-                //               WidgetStateProperty.all<RoundedRectangleBorder>(
-                //             RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(10),
-                //             ),
-                //           ),
-                //           backgroundColor:
-                //               WidgetStateProperty.all(Color(0xFF000000)),
-                //         ),
-                //       ),
-                //       ElevatedButton(
-                //         onPressed: null,
-                //         child: Text("Share form",
-                //             style:
-                //                 TextStyle(fontSize: 20, color: Colors.white)),
-                //         style: ButtonStyle(
-                //           padding: WidgetStateProperty.all<EdgeInsets>(
-                //               EdgeInsets.zero),
-                //           shape:
-                //               WidgetStateProperty.all<RoundedRectangleBorder>(
-                //             RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(10),
-                //             ),
-                //           ),
-                //           backgroundColor:
-                //               WidgetStateProperty.all(Color(0xFF000000)),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-
                 const Spacer(),
                 BottomNavigationBar(
                   items: const [
@@ -262,48 +211,6 @@ class _SecureFormSharableState extends State<SecureFormSharable> {
               ],
             ),
           ),
-
-          // body: Center(
-          //   child:
-          // Container(
-          //   child: ListView.builder(
-          //     itemCount: urls.length,
-          //     itemBuilder: (context, index) => Align(
-          //       alignment: Alignment.centerLeft,
-          //       child: Container(
-          //         key: ValueKey(urls[index]),
-          //         margin: const EdgeInsets.all(16),
-          //         decoration: const BoxDecoration(
-          //           borderRadius: BorderRadius.all(
-          //             Radius.circular(20),
-          //           ),
-          //           color: Color(0xfff7f7f8),
-          //         ),
-          //         child: ClipRRect(
-          //           borderRadius: const BorderRadius.all(
-          //             Radius.circular(20),
-          //           ),
-          //           child: LinkPreview(
-          //             enableAnimation: true,
-          //             onPreviewDataFetched: (data) {
-          //               setState(() {
-          //                 datas = {
-          //                   ...datas,
-          //                   urls[index]: data,
-          //                 };
-          //               });
-          //             },
-          //             previewData: datas[urls[index]],
-          //             text: urls[index],
-          //             width: MediaQuery.of(context).size.width,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // ),
-
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,

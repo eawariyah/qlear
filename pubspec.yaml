@@ -48,6 +48,7 @@ dependencies:
   firebase_core: ^3.3.0
   dio: ^5.6.0
   flutter_link_previewer: ^3.2.2
+  http: ^1.2.2
   # url_launcher: ^6.3.0
   # any_link_preview: ^3.0.2
   
@@ -89,6 +90,7 @@ flutter:
     - assets/radio.png
     - assets/TextInput.png
     - assets/QRCODE.png
+    - assets/LandingPage.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

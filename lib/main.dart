@@ -1,3 +1,4 @@
+import 'package:qlear/PriorLogin.dart';
 import 'package:qlear/createform.dart';
 import 'package:qlear/forms/secureform.dart';
 import 'package:qlear/preform/secureformpreform.dart';
@@ -20,7 +21,7 @@ class LandingPage extends StatelessWidget {
       title: 'Routing the pages',
       initialRoute: '/',
       routes: {
-        '/': (context) => const CreateForm(),
+        '/': (context) => const PriorLogin(),
         '/second': (context) => const CreateForm(),
         '/third': (context) => const ScanCode(),
         '/fourth': (context) => const ProfilePage(),
